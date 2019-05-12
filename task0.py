@@ -9,7 +9,7 @@ def isFooInBar(foo,bar,i):
 		return (foo >= bar[0]) and (foo<= bar[1])
 # чтение данных  из файла в виде строк и перевод в <class 'numpy.ndarray'>
 data = []
-source = '../python-ocr/output/mydata.csv'
+source = 'data.csv'
 sourceFd = open(source)
 lines = sourceFd.readlines()
 counter = 0
@@ -28,7 +28,7 @@ a, b = dataNp.min(), dataNp.max()
 h = round((b-a)/12,1)
 #print(a,b,h)
 # теперь выбираем отрезок [A,B] близкий к границам мин-макс, читай методу
-A, B = round(a, 2), round(a, 2)+12*h
+A, B = round(a, 2), round(a+12*h, 2)
 #print(A, B)
 # отрезок дробим на 12 равных частичных интервалов длиной h
 x = np.arange(A, B+h, h) # ndarray границ
@@ -36,7 +36,9 @@ x = np.arange(A, B+h, h) # ndarray границ
 delta = []
 for i in range(len(x)-1):
 	delta.append((x[i],x[i+1]))
-#print(delta)
+#избавляемся от потенциального треша с вещественной частью в 10 знаке после запятой
+delta = [(round(each[0],2), round(each[1],2)) for each in delta]
+print(delta)
 # определяем частоты n, т.е. число элементов выборки попавших
 # в каждый из частительных интервалов delta
 n = np.zeros(12)
@@ -53,6 +55,8 @@ p = [ni/200 for ni in n]
 x_middle = []
 for borders in delta:
 	x_middle.append((borders[0]+borders[1])/2)
+#и тут округлим на всякий пожарный, и для красоты)
+x_middle = [round(each,2) for each in x_middle]
 #print(x_middle)
 # построение гистограммы 
 #print((p/h),(x))
@@ -93,9 +97,10 @@ plt.ylabel('F_n(x)')
 plt.xticks(x_middle)
 plt.yticks(efr)
 plt.title('График эмпирической функции распределения')
-# plt.show()
+plt.show()
 # среднее выборочное значение дисперсии и выборочная дисперсия
 print(x_middle, p)
+
 x_m = []
 for i in range(len(p)):
 	x_m.append(x_middle[i]*p[i])
