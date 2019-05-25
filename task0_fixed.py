@@ -9,7 +9,7 @@ def isFooInBar(foo,bar,i):
 		return (foo >= bar[0]) and (foo<= bar[1])
 # чтение данных  из файла в виде строк и перевод в <class 'numpy.ndarray'>
 data = []
-source = 'IK_data_MatStat.txt'
+source = 'mydata.csv'
 sourceFd = open(source)
 lines = sourceFd.readlines()
 counter = 0
@@ -134,6 +134,6 @@ output_file.close()
 #2
 output_path = "out2.csv"
 output_file = open(output_path, "w")
-output_file.write(str(delta)+ "\n"+ str(x_middle)+"\n"+str(p)+"\n"+str(x_m_saved)+"\n"+str(x_m2_saved)+"\n x_m="+str(x_m)+"\n x_m2="+str(x_m2))
+output_file.write(str(x_middle)+"\n"+str(p)+"\n"+str(x_m_saved)+"\n"+str(x_m2_saved)+"\n x_m="+str(x_m)+"\n x_m2="+str(x_m2))
 output_file.write("\n доверительный интервал "+str((int_bot,int_top)))
 output_file.close()
