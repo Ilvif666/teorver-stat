@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from math import sqrt
 
 def isFooInBar(foo,bar,i):
 	if (i == 11 ) and (foo>=bar[1]) or (i==0) and (foo<=bar[0]):
