@@ -9,7 +9,7 @@ def isFooInBar(foo,bar,i):
 		return (foo >= bar[0]) and (foo<= bar[1])
 # чтение данных  из файла в виде строк и перевод в <class 'numpy.ndarray'>
 data = []
-source = 'dataPT.csv'
+source = 'mydata.csv'
 sourceFd = open(source)
 lines = sourceFd.readlines()
 counter = 0
@@ -59,8 +59,6 @@ for borders in delta:
 x_middle = [round(each,2) for each in x_middle]
 #print(x_middle)
 # построение гистограммы 
-
-
 #print((p/h),(x))
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -85,12 +83,12 @@ efr = EFR(list(p))
 efr = np.array([round(each,3) for each in efr])
 # print(p)
 # график эфр
-
 fig = plt.figure()
 ax = fig.add_subplot(111)
 plt.axis([A, B, 0, efr.max()])
 plt.bar(x_middle, height = efr, width = h)
-xax, yax = ax.xaxis, ax.yaxis 
+xax, yax = ax.xaxis, ax.yaxis
+plt.xticks(x_middle,[each+h/2 for each in x_middle])
 xax.grid(True)
 yax.grid(True)
 
