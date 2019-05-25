@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-# import matplotlib.ticker
 
 def isFooInBar(foo,bar,i):
 	if (i == 11 ) and (foo>=bar[1]) or (i==0) and (foo<=bar[0]):
@@ -9,7 +8,7 @@ def isFooInBar(foo,bar,i):
 		return (foo >= bar[0]) and (foo<= bar[1])
 # чтение данных  из файла в виде строк и перевод в <class 'numpy.ndarray'>
 data = []
-source = 'mydata.csv'
+source = 'IK_data_MatStat.txt'
 sourceFd = open(source)
 lines = sourceFd.readlines()
 counter = 0
@@ -47,7 +46,7 @@ for dataI in dataNp:
 		for i in range(len(delta)):
 			n[i] += isFooInBar(dataJ,delta[i],i)
 #print(n)
-# относительные частоты p = ni/n 
+# относительные частоты p = ni/n
 p = [ni/200 for ni in n]
 #print(p)
 #середины частичных интервалов x_middle
@@ -58,13 +57,13 @@ for borders in delta:
 #и тут округлим на всякий пожарный, и для красоты)
 x_middle = [round(each,2) for each in x_middle]
 #print(x_middle)
-# построение гистограммы 
+# построение гистограммы
 #print((p/h),(x))
 fig = plt.figure()
 ax = fig.add_subplot(111)
 plt.axis([A, B, 0, (p/h).max()])
 plt.bar(x_middle, height = p/h, width = h)
-xax, yax = ax.xaxis, ax.yaxis 
+xax, yax = ax.xaxis, ax.yaxis
 xax.grid(True)
 yax.grid(True)
 
@@ -88,7 +87,7 @@ ax = fig.add_subplot(111)
 plt.axis([A, B, 0, efr.max()])
 plt.bar(x_middle, height = efr, width = h)
 xax, yax = ax.xaxis, ax.yaxis
-plt.xticks(x_middle,[each+h/2 for each in x_middle])
+plt.xticks(x_middle,[round(each+h/2,2) for each in x_middle])
 xax.grid(True)
 yax.grid(True)
 
@@ -118,21 +117,21 @@ x_m2 = round(np.array(x_m2).sum(),3)
 #print(x_m2)
 D = x_m2 - x_m**2
 #print(D)
-#доверительный интервал psi = 0.95 
+#доверительный интервал psi = 0.95
 t =2.24
 num = 200**0.5
-int_bot = round(x_m - t*(D/num),2)
-int_top = round(x_m + t*(D/num),2)
+int_bot = round(x_m - t*(sqrt(D)/num),2)
+int_top = round(x_m + t*(sqrt(D)/num),2)
 print(int_bot, int_top)
 ###
 # Вывод в таблицы
 #1
-output_path = "out1.csv" 
+output_path = "out1.csv"
 output_file = open(output_path, "w")
 output_file.write(str(delta)+ "\n"+ str(x_middle)+"\n"+str(n)+"\n"+str(p))
 output_file.close()
 #2
-output_path = "out2.csv" 
+output_path = "out2.csv"
 output_file = open(output_path, "w")
 output_file.write(str(delta)+ "\n"+ str(x_middle)+"\n"+str(p)+"\n"+str(x_m_saved)+"\n"+str(x_m2_saved)+"\n x_m="+str(x_m)+"\n x_m2="+str(x_m2))
 output_file.write("\n доверительный интервал "+str((int_bot,int_top)))
