@@ -1,4 +1,4 @@
-from mthds import *
+from module import *
 source = 'mydata.csv'
 if len(sys.argv)>1:	source = sys.argv[1]
 sourceFd = open(source)
