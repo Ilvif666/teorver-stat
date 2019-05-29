@@ -58,7 +58,7 @@ for i in range(len(p)):
 x_m2_saved = list(x_m2)
 x_m2 = round(np.array(x_m2).sum(), 3)
 D = x_m2 - x_m ** 2
-#доверительный интервал psi = 0.95
+#доверительный интервал psi = 0.975
 t =2.24
 num = 200**0.5
 int_bot = round(x_m - t*(sqrt(D)/num),2)
