@@ -1,6 +1,6 @@
 # teorver-stat
 ## theory
-[here](teorver-stat/README.pdf)
+[here](/README.pdf)
 ## to run
 python main.py path_to_input
 ## output
